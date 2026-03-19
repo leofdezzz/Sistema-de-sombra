@@ -14,6 +14,39 @@ El archivo principal del proyecto es:
 
 ---
 
+## Vista rápida
+
+### Objetivo del proyecto
+Construir un sistema que proyecte sombra automáticamente sobre un objetivo, desplazando un cartón por un carril según la dirección desde la que incide la luz.
+
+### Resumen del algoritmo
+1. El servo orienta el fototransistor.
+2. El sensor barre todo el rango angular.
+3. Se detecta el ángulo con mayor intensidad lumínica.
+4. Ese ángulo se transforma en una posición lateral mediante trigonometría.
+5. El stepper mueve el carro/polea hasta esa posición.
+6. El proceso se repite continuamente para seguir la luz en tiempo real.
+
+### Archivo del proyecto
+- `esp32completo.ino`: sketch principal con toda la lógica de sensado, cálculo y movimiento.
+
+---
+
+## Cómo está organizado el código
+
+Aunque el proyecto está en un único archivo, internamente se puede dividir en bloques muy claros:
+
+- **Definición de pines**: conexión del hardware.
+- **Parámetros del sistema**: geometría, tiempos, umbrales y conversión mecánica.
+- **Estado global**: posición actual, mejor ángulo, flags y temporizadores.
+- **Funciones de actuadores**: control de servo, stepper y LEDs.
+- **Funciones de cálculo**: conversión de ángulo a posición lineal.
+- **Funciones de control**: barrido, detección del máximo y corrección de la pared.
+- **`setup()`**: inicialización del hardware.
+- **`loop()`**: ejecución continua del sistema automático.
+
+---
+
 ## 1. Qué hace el sistema
 
 El sistema implementa un seguimiento automático de la luz:
@@ -44,6 +77,18 @@ Según el código, el sistema usa:
 ---
 
 ## 3. Asignación de pines
+
+### Tabla rápida de conexiones
+
+- GPIO 34 → fototransistor (lectura analógica)
+- GPIO 18 → señal del servo
+- GPIO 19/21/22/23 → entradas IN1/IN2/IN3/IN4 del ULN2003
+- GPIO 14 → botón de reset / reinicio de seguimiento
+- GPIO 27 → botón auxiliar reservado
+- GPIO 2 → LED principal de sistema
+- GPIO 26/25/33 → LEDs de dirección
+- GPIO 15 → LED de nuevo máximo detectado
+
 
 Estas definiciones están al inicio del código:
 
@@ -593,6 +638,25 @@ El bucle principal hace constantemente esto:
 
 ## 11. Flujo completo del programa
 
+### Diagrama mental del sistema
+
+```text
+Fototransistor + Servo
+        ↓
+Barrido angular continuo
+        ↓
+Detección del máximo de luz
+        ↓
+Cálculo trigonométrico de posición
+        ↓
+Stepper + polea
+        ↓
+Desplazamiento del cartón
+        ↓
+Sombra sobre el objetivo
+```
+
+
 El comportamiento completo del sistema puede resumirse así:
 
 1. **Inicio**
@@ -685,7 +749,18 @@ Es un sistema de control simple, pero muy didáctico, porque combina:
 
 ---
 
-## 15. Posibles mejoras futuras
+## 15. Limitaciones actuales del código
+
+Antes de pensar en mejoras, conviene entender las limitaciones de esta versión:
+
+- Todo el proyecto está en un único archivo `.ino`, lo que simplifica el prototipo pero dificulta escalarlo.
+- `moverPared()` usa `delay()`, así que durante el movimiento del stepper el sistema no es completamente no bloqueante.
+- No hay finales de carrera ni procedimiento de homing real, por lo que `posicionParedActual` depende de que no se pierdan pasos.
+- `CM_POR_PASO` está fijado manualmente y puede requerir calibración experimental.
+- El umbral de luz está configurado en `0`, así que prácticamente cualquier lectura positiva puede considerarse válida.
+- El fototransistor usa una única medida por ángulo; no hay filtrado avanzado ni promedio estadístico.
+
+## 16. Posibles mejoras futuras
 
 Algunas mejoras que podrían añadirse en versiones siguientes:
 
@@ -699,7 +774,22 @@ Algunas mejoras que podrían añadirse en versiones siguientes:
 
 ---
 
-## 16. Resumen final
+## 17. Cómo cargarlo en el ESP32
+
+Pasos típicos para usar el proyecto:
+
+1. Abrir `esp32completo.ino` en Arduino IDE o PlatformIO.
+2. Instalar la librería `ESP32Servo`.
+3. Seleccionar la placa ESP32 correcta.
+4. Revisar pines y alimentación del servo/stepper.
+5. Subir el sketch.
+6. Abrir el monitor serie a `115200 baudios`.
+7. Observar el barrido del servo y el movimiento corrector de la pared.
+
+### Recomendación eléctrica
+No alimentar servo y stepper directamente desde una salida frágil del microcontrolador sin revisar consumos. Lo normal es usar alimentación adecuada y masa común con el ESP32.
+
+## 18. Resumen final
 
 Este código implementa un **sistema automático de sombra** donde:
 
