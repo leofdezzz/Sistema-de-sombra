@@ -1,12 +1,12 @@
 # Sistema de Sombra
 
-Proyecto de control automático de sombra con **ESP32**, un **servo** y un **motor paso a paso (stepper)**.
+En este proyecto he desarrollado un sistema de control automático de sombra con **ESP32**, un **servo** y un **motor paso a paso (stepper)**.
 
-La idea del sistema es:
+La idea general de mi proyecto es la siguiente:
 
-1. Un **fototransistor** montado sobre un **servo** barre distintos ángulos para encontrar la dirección donde llega más luz.
-2. A partir de ese ángulo, el programa calcula dónde debe colocarse una **pantalla/cartón** que se mueve por un carril.
-3. Un **stepper 28BYJ-48 con ULN2003** desplaza el sistema de polea para colocar el cartón y generar sombra sobre un objetivo.
+1. Un **fototransistor** montado sobre un **servo** barre distintos ángulos para detectar desde dónde llega más luz.
+2. A partir de ese ángulo, el programa calcula la posición que debe ocupar una **pantalla de cartón** que se desplaza por un carril.
+3. Un **stepper 28BYJ-48 con ULN2003** mueve el sistema de polea para colocar el cartón y generar sombra sobre el objetivo.
 
 El archivo principal del proyecto es:
 
@@ -17,24 +17,24 @@ El archivo principal del proyecto es:
 ## Vista rápida
 
 ### Objetivo del proyecto
-Construir un sistema que proyecte sombra automáticamente sobre un objetivo, desplazando un cartón por un carril según la dirección desde la que incide la luz.
+El objetivo de mi proyecto es proyectar sombra automáticamente sobre un objetivo, desplazando un cartón por un carril según la dirección desde la que incide la luz.
 
-### Resumen del algoritmo
+### Resumen del funcionamiento
 1. El servo orienta el fototransistor.
 2. El sensor barre todo el rango angular.
 3. Se detecta el ángulo con mayor intensidad lumínica.
 4. Ese ángulo se transforma en una posición lateral mediante trigonometría.
-5. El stepper mueve el carro/polea hasta esa posición.
-6. El proceso se repite continuamente para seguir la luz en tiempo real.
+5. El stepper mueve el carro o sistema de polea hasta esa posición.
+6. Este proceso se repite continuamente para seguir la luz en tiempo real.
 
 ### Archivo del proyecto
-- `esp32completo.ino`: sketch principal con toda la lógica de sensado, cálculo y movimiento.
+- `esp32completo.ino`: archivo principal donde he reunido toda la lógica de sensado, cálculo y movimiento.
 
 ---
 
 ## Cómo está organizado el código
 
-Aunque el proyecto está en un único archivo, internamente se puede dividir en bloques muy claros:
+Aunque he desarrollado el proyecto en un único archivo, internamente el código se puede dividir en bloques muy claros:
 
 - **Definición de pines**: conexión del hardware.
 - **Parámetros del sistema**: geometría, tiempos, umbrales y conversión mecánica.
@@ -49,7 +49,7 @@ Aunque el proyecto está en un único archivo, internamente se puede dividir en 
 
 ## 1. Qué hace el sistema
 
-El sistema implementa un seguimiento automático de la luz:
+En este proyecto el sistema implementa un seguimiento automático de la luz:
 
 - El servo gira el sensor entre `0°` y `180°`.
 - En cada posición lee el valor analógico del fototransistor.
@@ -728,7 +728,7 @@ Ejemplo conceptual:
 
 ## 14. Ideas clave del diseño
 
-Este proyecto mezcla tres bloques principales:
+En mi proyecto se combinan tres bloques principales:
 
 ### 1. Sensado
 El fototransistor detecta por dónde entra más luz.
