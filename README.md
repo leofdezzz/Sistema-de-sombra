@@ -80,6 +80,18 @@ En este proyecto utilizo:
 - **Botón de reset/búsqueda**
 - **LEDs de estado**
 
+### ESP32
+
+![ESP32](images/esp32.jpg)
+
+En esta imagen se puede ver la placa ESP32 que utilizo como controlador principal del proyecto.
+
+### Stepper motor
+
+![Stepper motor](images/stepper-motor.jpg)
+
+Aquí se puede ver el motor paso a paso que utilizo para mover el sistema de polea y desplazar el cartón.
+
 ### Servo y fototransistor
 
 ![Servo y fototransistor](images/servo-fototransistor.jpg)
@@ -184,6 +196,12 @@ const int   VELOCIDAD_STEPPER   = 10;
 #### LEDs auxiliares
 - `PULSO_NUEVO_MAX_MS`: duración del pulso del LED de nuevo máximo.
 - `ANIMACION_DIR_MS`: tiempo entre cambios de animación de los LEDs de dirección.
+
+### Alimentación del sistema
+
+![Alimentación del sistema](images/alimentacion.jpg)
+
+El proyecto está alimentado por una fuente de **12V y 1.5A**. En esta imagen se pueden ver dos reductores de voltaje a **5V**: uno lo utilizo para alimentar el **ESP32** y el otro para alimentar los **dos motores**.
 
 ---
 
