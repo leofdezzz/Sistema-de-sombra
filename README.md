@@ -65,7 +65,7 @@ En resumen:
 
 ## 2. Hardware implicado
 
-Según el código, el sistema usa:
+En este proyecto utilizo:
 
 - **ESP32**
 - **Fototransistor** conectado a una entrada analógica
@@ -117,7 +117,7 @@ Estas definiciones están al inicio del código:
 - `PIN_SERVO`: salida PWM para mover el servo que orienta el sensor.
 - `PIN_STEPPER_IN1..IN4`: bobinas del stepper controladas por el ULN2003.
 - `PIN_BOTON_BUSCAR`: botón para reiniciar/rearmar el sistema.
-- `PIN_BOTON_MOVER`: se configura, pero en esta versión no participa realmente en la lógica automática.
+- `PIN_BOTON_MOVER`: está configurado como entrada, aunque no forma parte de la lógica automática principal.
 - `PIN_LED`: LED principal de encendido/estado.
 - `PIN_LED_DIR_1..3`: LEDs para animar visualmente el sentido de movimiento del stepper.
 - `PIN_LED_NUEVO_MAX`: LED que da un pulso al detectar un nuevo máximo de luz durante el barrido.
@@ -394,7 +394,7 @@ Lee el botón de reset con una lógica simple de debounce.
 - Solo acepta una nueva pulsación si han pasado más de `250 ms` desde la última.
 
 ### Nota
-Aunque el pin se llama `PIN_BOTON_BUSCAR`, en esta versión su función real es reiniciar el sistema.
+Aunque el pin se llama `PIN_BOTON_BUSCAR`, en mi programa lo utilizo para reiniciar el sistema.
 
 ---
 
@@ -606,7 +606,7 @@ void setup()
 9. Muestra mensajes indicando que el seguimiento automático está activo.
 
 ### Comentario importante del código
-El propio sketch aclara que algunos botones quedan configurados aunque ya no se usen en modo automático.
+En el programa dejo algunos botones configurados aunque ya no formen parte del funcionamiento automático.
 
 ---
 
