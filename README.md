@@ -12,6 +12,26 @@ El archivo principal del proyecto es:
 
 - `esp32completo.ino`
 
+## Imágenes del proyecto
+
+### Montaje final
+
+![Montaje final del proyecto](images/montaje-final.jpg)
+
+Esta imagen muestra el montaje final completo del sistema.
+
+### Servo y fototransistor
+
+![Servo y fototransistor](images/servo-fototransistor.jpg)
+
+En esta parte se puede ver el servo junto al fototransistor, que es el elemento encargado de detectar desde dónde llega la luz.
+
+### Sistema visual de LEDs
+
+![Sistema visual de LEDs](images/sistema-leds.jpg)
+
+Aquí se muestra el montaje del sistema visual de LEDs que utilizo para indicar estados y movimientos del sistema.
+
 ---
 
 ## Vista rápida
