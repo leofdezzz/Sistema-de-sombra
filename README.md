@@ -774,7 +774,56 @@ Algunas mejoras que podrían añadirse en versiones siguientes:
 
 ---
 
-## 17. Cómo cargarlo en el ESP32
+## 17. Montaje físico del sistema
+
+Aunque el código no describe toda la estructura mecánica al detalle, por su lógica se deduce un montaje como este:
+
+### Elementos mecánicos
+- Un **sensor de luz** montado sobre el brazo de un **servo**.
+- Un **cartón o pantalla opaca** que hace de barrera de sombra.
+- Un **carril lineal** por el que se desplaza esa pantalla.
+- Un sistema de **polea, cuerda o arrastre** unido al eje del stepper para convertir giro en desplazamiento lineal.
+- Un **objetivo fijo** al que se quiere proteger de la luz directa.
+
+### Disposición recomendada
+1. Colocar el **objetivo** en una posición fija frente al sistema.
+2. Situar el **cartón/pantalla** entre la fuente de luz y el objetivo.
+3. Montar el cartón sobre un **carro deslizante** o soporte móvil.
+4. Unir ese carro a una **polea/correa/hilo** accionado por el stepper.
+5. Instalar el **servo con el fototransistor** en una posición desde la que pueda barrer el ángulo de incidencia de la luz.
+6. Alinear la referencia geométrica del sensor con el sistema lineal para que el cálculo trigonométrico tenga sentido físico.
+
+### Interpretación geométrica del montaje
+El programa asume que:
+- el servo mide la **dirección angular** desde la que incide la luz,
+- existe una distancia fija (`DISTANCIA_CM`) entre la referencia angular y el plano donde actúa la sombra,
+- la pantalla se mueve lateralmente a lo largo de un carril,
+- y el ancho útil del cartón es `ANCHO_PARED_CM`.
+
+En otras palabras: el sensor detecta "de dónde viene" la luz y el carro mueve la pantalla lateralmente para interponerse en esa trayectoria.
+
+### Recomendaciones prácticas de montaje
+- Fijar bien el servo para que no vibre durante el barrido.
+- Evitar holguras grandes en la polea o cuerda, porque afectarían a la precisión de `CM_POR_PASO`.
+- Si el carro tiene rozamiento, calibrar bien el sistema para que el stepper no pierda pasos.
+- Usar topes mecánicos o, idealmente, finales de carrera si se quiere una versión más robusta.
+- Procurar que el fototransistor tenga un campo de visión razonable y no reciba sombras parásitas del propio soporte.
+
+### Esquema conceptual
+
+```text
+Fuente de luz
+      ↓
+ [ Servo + fototransistor ]  → detecta el ángulo
+      ↓
+ Cálculo en el ESP32
+      ↓
+ [ Stepper + polea ] → mueve → [ Cartón / pantalla ]
+                                      ↓
+                             genera sombra sobre el objetivo
+```
+
+## 18. Cómo cargarlo en el ESP32
 
 Pasos típicos para usar el proyecto:
 
@@ -789,7 +838,7 @@ Pasos típicos para usar el proyecto:
 ### Recomendación eléctrica
 No alimentar servo y stepper directamente desde una salida frágil del microcontrolador sin revisar consumos. Lo normal es usar alimentación adecuada y masa común con el ESP32.
 
-## 18. Resumen final
+## 19. Resumen final
 
 Este código implementa un **sistema automático de sombra** donde:
 
