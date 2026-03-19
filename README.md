@@ -12,26 +12,6 @@ El archivo principal del proyecto es:
 
 - `esp32completo.ino`
 
-## Imágenes del proyecto
-
-### Montaje final
-
-![Montaje final del proyecto](images/montaje-final.jpg)
-
-Esta imagen muestra el montaje final completo del sistema.
-
-### Servo y fototransistor
-
-![Servo y fototransistor](images/servo-fototransistor.jpg)
-
-En esta parte se puede ver el servo junto al fototransistor, que es el elemento encargado de detectar desde dónde llega la luz.
-
-### Sistema visual de LEDs
-
-![Sistema visual de LEDs](images/sistema-leds.jpg)
-
-Aquí se muestra el montaje del sistema visual de LEDs que utilizo para indicar estados y movimientos del sistema.
-
 ---
 
 ## Vista rápida
@@ -49,6 +29,12 @@ El objetivo de mi proyecto es proyectar sombra automáticamente sobre un objetiv
 
 ### Archivo del proyecto
 - `esp32completo.ino`: archivo principal donde he reunido toda la lógica de sensado, cálculo y movimiento.
+
+### Imagen del montaje final
+
+![Montaje final del proyecto](images/montaje-final.jpg)
+
+En esta imagen se puede ver el montaje final completo del sistema.
 
 ---
 
@@ -93,6 +79,12 @@ En este proyecto utilizo:
 - **Stepper 28BYJ-48** con driver **ULN2003**
 - **Botón de reset/búsqueda**
 - **LEDs de estado**
+
+### Servo y fototransistor
+
+![Servo y fototransistor](images/servo-fototransistor.jpg)
+
+En esta imagen se puede ver el conjunto formado por el servo y el fototransistor, que utilizo para detectar desde dónde llega la luz.
 
 ---
 
@@ -720,6 +712,12 @@ Muestran una animación de dirección mientras el stepper se mueve:
 - en el otro: `3 → 2 → 1`
 
 Esto ayuda a interpretar el movimiento del carro sin necesidad de mirar la salida serie.
+
+### Montaje del sistema visual de LEDs
+
+![Sistema visual de LEDs](images/sistema-leds.jpg)
+
+En esta imagen se puede ver el sistema visual de LEDs que utilizo para indicar estados y movimientos durante el funcionamiento del proyecto.
 
 ---
 
