@@ -1,12 +1,12 @@
 # Sistema de Sombra
 
-En este proyecto he desarrollado un sistema de control automático de sombra con **ESP32**, un **servo** y un **motor paso a paso (stepper)**.
+En este proyecto he desarrollado un sistema automático de sombra con **ESP32**, un **servo** y un **motor paso a paso**.
 
 La idea general de mi proyecto es la siguiente:
 
 1. Un **fototransistor** montado sobre un **servo** barre distintos ángulos para detectar desde dónde llega más luz.
 2. A partir de ese ángulo, el programa calcula la posición que debe ocupar una **pantalla de cartón** que se desplaza por un carril.
-3. Un **stepper 28BYJ-48 con ULN2003** mueve el sistema de polea para colocar el cartón y generar sombra sobre el objetivo.
+3. Un **motor paso a paso 28BYJ-48 con ULN2003** mueve el sistema de polea para colocar el cartón y generar sombra sobre el objetivo.
 
 El archivo principal del proyecto es:
 
@@ -24,7 +24,7 @@ El objetivo de mi proyecto es proyectar sombra automáticamente sobre un objetiv
 2. El sensor barre todo el rango angular.
 3. Se detecta el ángulo con mayor intensidad lumínica.
 4. Ese ángulo se transforma en una posición lateral mediante trigonometría.
-5. El stepper mueve el carro o sistema de polea hasta esa posición.
+5. El motor paso a paso mueve el carro o sistema de polea hasta esa posición.
 6. Este proceso se repite continuamente para seguir la luz en tiempo real.
 
 ### Archivo del proyecto
@@ -76,8 +76,8 @@ En este proyecto utilizo:
 - **ESP32**
 - **Fototransistor** conectado a una entrada analógica
 - **Servo** para orientar el sensor
-- **Stepper 28BYJ-48** con driver **ULN2003**
-- **Botón de reset/búsqueda**
+- **Motor paso a paso 28BYJ-48** con driver **ULN2003**
+- **Botón de reinicio**
 - **LEDs de estado**
 
 ### ESP32
@@ -86,9 +86,9 @@ En este proyecto utilizo:
 
 En esta imagen se puede ver la placa ESP32 que utilizo como controlador principal del proyecto.
 
-### Stepper motor
+### Motor paso a paso
 
-![Stepper motor](images/stepper-motor.jpg)
+![Motor paso a paso](images/stepper-motor.jpg)
 
 Aquí se puede ver el motor paso a paso que utilizo para mover el sistema de polea y desplazar el cartón.
 
@@ -140,7 +140,7 @@ Estas definiciones están al inicio del código:
 - `PIN_FOTOTRANSISTOR`: lectura analógica del sensor de luz.
 - `PIN_SERVO`: salida PWM para mover el servo que orienta el sensor.
 - `PIN_STEPPER_IN1..IN4`: bobinas del stepper controladas por el ULN2003.
-- `PIN_BOTON_BUSCAR`: botón para reiniciar/rearmar el sistema.
+- `PIN_BOTON_BUSCAR`: botón que utilizo para reiniciar el sistema.
 - `PIN_BOTON_MOVER`: está configurado como entrada, aunque no forma parte de la lógica automática principal.
 - `PIN_LED`: LED principal de encendido/estado.
 - `PIN_LED_DIR_1..3`: LEDs para animar visualmente el sentido de movimiento del stepper.
